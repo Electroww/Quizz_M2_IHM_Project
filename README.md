@@ -14,5 +14,5 @@ PROJET KWIZZ
 
 ## Modules ajoutés
 ### Client
-[x] Typescript - Typage fort, qualité du code</br>
-[x] Eslint - Pour la mise en forme du code et correction de la syntaxe
+- [x] Typescript - Typage fort, qualité du code</br>
+- [x] Eslint - Pour la mise en forme du code et correction de la syntaxe
