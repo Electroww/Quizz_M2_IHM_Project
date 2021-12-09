@@ -7,12 +7,13 @@ import 'bootstrap/dist/css/bootstrap.css'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import { Question } from './types/question'
 
 const ENDPOINT = 'http://localhost:8080'
 const socket = openSocket(ENDPOINT, { transports: ['websocket'] })
 
 export default function App() {
-  const [questions, setQuestions] = useState([])
+  const [questions, setQuestions] = useState<Question[]>([])
 
   useEffect(() => {
     socket.on('quiz', (data) => {
@@ -31,8 +32,7 @@ export default function App() {
         </Row>
       </Container>
 
-      <QuestionsComponent questions={questions}></QuestionsComponent>
-      {/* socket={socket} */}
+      <QuestionsComponent socket={socket} questions={questions}></QuestionsComponent>
 
       <Container>
         <Row>

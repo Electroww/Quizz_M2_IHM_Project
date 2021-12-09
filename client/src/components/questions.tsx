@@ -4,12 +4,12 @@ import { Socket } from 'socket.io-client'
 import { Question } from './../types/question'
 
 interface QuestionProps {
-  question: Question
+  questions: Array<Question>
   socket: Socket
 }
 
 export default function questions(props: QuestionProps): ReactElement {
-  const handleClick = (q: string, opt: string) => {
+  const handleClick = (q: Question, opt: string) => {
     console.log('Question : ' + q.id)
     console.log('Réponse : ' + opt)
   }
@@ -17,7 +17,7 @@ export default function questions(props: QuestionProps): ReactElement {
   return (
     <Container className="questions">
       <h2>Questions</h2>
-      {props.questions.map((q: string) => (
+      {props.questions.map((q: Question) => (
         <div key={q.id} className="question-block">
           <div className="question">
             <h3 id="question_title">
