@@ -2,10 +2,10 @@
   "name": "kwiz",
   "version": "1.2.0",
   "description": "Interactive quizz game",
-  "start": "node server.js",
+
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-    
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "yourname",
   "license": "ISC",

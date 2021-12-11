@@ -1,4 +1,4 @@
-export interface Question {
+declare interface Question {
   id: string
   question: string
   options: string[]

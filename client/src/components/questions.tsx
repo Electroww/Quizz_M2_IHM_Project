@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react'
 import Container from 'react-bootstrap/Container'
 import { Socket } from 'socket.io-client'
-import { Question } from './../types/question'
 
 interface QuestionProps {
   questions: Array<Question>

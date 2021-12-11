@@ -1,0 +1,20 @@
+{
+    "files.eol": "\n",
+    "eslint.workingDirectories": [
+        "./"
+    ],
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "eslint.validate": [
+        "typescript",
+        "javascript",
+        "json",
+        "vue",
+        "md"
+    ],
+    "editor.formatOnSave": true,
+    "editor.quickSuggestions": {
+        "strings": true
+    },
+}
