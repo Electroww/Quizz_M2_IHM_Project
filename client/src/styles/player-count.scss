@@ -1,0 +1,23 @@
+.user-icon {
+    border-radius: 50%;
+    background:#eff0fa;
+    color: #D0D1DB;
+    width:1.4rem;
+    height: 1.4rem;
+    font-size: 1rem;
+    stroke-width: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left:0.2rem;
+    margin-right:0.2rem;
+}
+.user-icon.selected {
+    background:#2341EB ;
+    color: #fff ;
+}
+.players {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

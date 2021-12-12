@@ -1,8 +1,11 @@
 import { motion } from 'framer-motion'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useContext } from 'react'
+import Question from '../components/question'
 import './../styles/quizz.scss'
 
 export default function quizz(): ReactElement {
+  const [currentQuestion, setCurrentQuestion] = React.useState(0)
+
   return (
     <motion.div
       className="content quizz"
@@ -17,7 +20,8 @@ export default function quizz(): ReactElement {
     >
       <div className="background white-bg"></div>
       <div>
-        <h2>QUIZZ</h2>
+        <h2 className="title-quizz">QUIZZ</h2>
+        <div>{/* <Question question={undefined}></Question> */}</div>
       </div>
     </motion.div>
   )

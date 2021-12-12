@@ -1,14 +1,14 @@
 import React, { ReactElement } from 'react'
 import './../styles/users.scss'
 
-interface usersProps {
-  users: Array<User>
+interface playersProps {
+  players: Array<Player>
 }
 
-export default function users(props: usersProps): ReactElement {
+export default function users(props: playersProps): ReactElement {
   return (
     <div className="user-list-content">
-      {props.users.map((user: User) => (
+      {props.players.map((user: Player) => (
         <div className="user-item" key={user.id}>
           <div className="item-right">
             <div className="pic-profile">{user.name.slice(0, 2).toUpperCase()}</div>

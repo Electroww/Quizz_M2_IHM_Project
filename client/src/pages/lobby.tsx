@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import './../styles/lobby.scss'
-import Users from './../components/users'
+import Players from './../components/players'
 import { useHistory } from 'react-router'
 
 export default function lobby(): ReactElement {
@@ -14,18 +14,24 @@ export default function lobby(): ReactElement {
   }
 
   //temp
-  const userList = [
+  const playersList = [
     {
       name: 'John',
       id: '1',
+      score: 0,
+      ready: false,
     },
     {
       name: 'Jane',
       id: '2',
+      score: 0,
+      ready: false,
     },
     {
       name: 'Jack',
       id: '3',
+      score: 0,
+      ready: false,
     },
   ]
 
@@ -58,11 +64,11 @@ export default function lobby(): ReactElement {
         <h2 className="white">LOBBY</h2>
         <div className="lobby-content">
           <div className="lobby-title">Online users</div>
-          <Users users={userList} />
+          <Players players={playersList} />
         </div>
         <div className="ready-content">
           <div className="ready-title">
-            {userList.length > 1 ? (
+            {playersList.length > 1 ? (
               <>
                 <i className="eva eva-alert-circle-outline"></i>
                 <span>Waiting for another player to start a game</span>
