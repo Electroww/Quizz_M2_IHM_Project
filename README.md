@@ -19,3 +19,7 @@ PROJET KWIZZ
 - [x] Typescript - Typage fort, qualité du code</br>
 - [x] Motion Framer - Animations et transitions</br>
 - [x] Eslint/Prettier - Pour la mise en forme du code et correction de la syntaxe
+- [x] Redux - Gestionnaire de state</br>
+
+### Server
+- [x] Nodemon - restart server auto après modifs</br>

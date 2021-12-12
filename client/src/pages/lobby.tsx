@@ -16,7 +16,10 @@ export default function lobby(): ReactElement {
 
   useEffect(() => {
     const allPlayersReady = Object.keys(players).every((id) => players[id].ready)
-    if (allPlayersReady) {
+    if (
+      allPlayersReady &&
+      Object.keys(players).filter((id) => players[id].name !== '').length > 1
+    ) {
       history.push('/quizz')
     }
   }, [players])
