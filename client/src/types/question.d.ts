@@ -1,6 +1,5 @@
 declare interface Question {
   id: string
-  question: string
+  text: string
   options: string[]
-  answer: string
 }

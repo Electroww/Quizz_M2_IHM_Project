@@ -1,10 +1,21 @@
 import { motion } from 'framer-motion'
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import Question from '../components/question'
+import { socket } from '../service/socket'
+import { incrementRound } from '../store/features/questions-slice'
+import { useAppDispatch, useAppSelector } from '../store/hooks'
 import './../styles/quizz.scss'
 
 export default function quizz(): ReactElement {
-  const [currentQuestion, setCurrentQuestion] = React.useState(0)
+  const questions = useAppSelector((state) => state.questions.questionsList)
+  const round = useAppSelector((state) => state.questions.round)
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    socket.on('nextQuestion', () => {
+      dispatch(incrementRound())
+    })
+  }, [])
 
   return (
     <motion.div
@@ -21,7 +32,9 @@ export default function quizz(): ReactElement {
       <div className="background white-bg"></div>
       <div>
         <h2 className="title-quizz">QUIZZ</h2>
-        <div>{/* <Question question={undefined}></Question> */}</div>
+        <div>
+          <Question question={questions[round]} round={round} />
+        </div>
       </div>
     </motion.div>
   )

@@ -1,0 +1,43 @@
+{
+  "questions": [
+    {
+      "question": {
+        "id": "q1",
+        "text": "How many episodes does Arcane have ?",
+        "options": [
+          "8",
+          "10",
+          "9",
+          "12"
+        ]
+      },
+      "answer": 2
+    },
+    {
+      "question": {
+        "id": "q2",
+        "text": "Which year did League of Legends release ?",
+        "options": [
+          "2006",
+          "2009",
+          "2077",
+          "2008"
+        ]
+      },
+      "answer": 1
+    },
+    {
+      "question": {
+        "id": "q3",
+        "text": "Which team won the 2021 World Championship ?",
+        "options": [
+          "Edward Gaming",
+          "Damwon Kia",
+          "G2 Esports",
+          "T1"
+        ]
+      },
+      "answer": 0
+    }
+  ]
+}

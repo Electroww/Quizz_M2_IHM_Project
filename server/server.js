@@ -7,8 +7,8 @@ const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const app = express();
-const kwiz = require('./kwiz_module/kwiz_module');
 const players = require('./players/players')
+const questions = require('./questions/questions')
 
 //make the server and the socketsio
 const server = require('http').createServer(app);
@@ -21,26 +21,53 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 // Quand un client se connecte, on le note dans la console
 io.on('connection', function (socket) {
 
+    /********************
+    * PLAYER MANAGEMENT *
+    *********************/
+
+    // Add you in the player list and send the new player list to everyone
     players.createPlayer(socket);
     io.sockets.emit('updatePlayers', players.getOnlinePlayers());
 
-    //send the questions to the client
-    socket.emit("quiz", kwiz.questions());
-
+    // New player connection to the lobby (name is entered)
     socket.on('newPlayer', (name) => {
         players.setPlayerName(socket, name);
         io.sockets.emit('updatePlayers', players.getOnlinePlayers());
     })
 
+    // Player is ready on the lobby
     socket.on('playerReady', () => {
         players.setPlayerReady(socket);
         io.sockets.emit('updatePlayers', players.getOnlinePlayers());
     })
 
+    // Remvoe disconneted player from the player list
     socket.on('disconnect', function () {
-       players.removePlayer(socket);
+        players.removePlayer(socket);
         io.sockets.emit('updatePlayers', players.getOnlinePlayers());
     })
+
+
+    /***********************
+    * QUESTIONS MANAGEMENT *
+    ************************/
+
+    socket.emit('sendQuestions',  questions.getQuestions())
+
+    // Player answer to the question
+    socket.on('answerQuestion', (currentQuestionIndex, answer) => {
+        questions.addPlayerAnswer(socket, currentQuestionIndex, answer);
+        
+        //everyone answer to the question, send the new question to everyone
+        if (Object.keys(questions.getPlayersAnswers()).length === Object.keys(players.getOnlinePlayers()).length) {
+            questions.verifyAnswers();
+            io.sockets.emit('updatePlayers', players.getOnlinePlayers());
+            io.sockets.emit('nextQuestion');
+            questions.clearPlayersAnswers();
+        }
+
+    })
+
 });
 
 server.listen(8080);

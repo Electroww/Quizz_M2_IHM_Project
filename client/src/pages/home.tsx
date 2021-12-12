@@ -19,6 +19,12 @@ export default function home() {
     }
   }
 
+  function handleKeyPress(e: React.KeyboardEvent) {
+    if (e.key === 'Enter') {
+      handleClick()
+    }
+  }
+
   useEffect(() => {
     console.log('players home', players)
   }, [players])
@@ -39,6 +45,7 @@ export default function home() {
         <div className="input-content">
           <input
             ref={playerName}
+            onKeyPress={handleKeyPress}
             className="username"
             placeholder="Pseudonyme"
             type="text"

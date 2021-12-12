@@ -29,5 +29,12 @@ const removePlayer = (socket) => {
     delete onlinePlayers[socket.id];
     console.log(`Player ${socket.id} disconnected`);
 }
+
+const incrementPlayerScore = (playerId) => {
+    console.log(playerId);
+    console.log(onlinePlayers[playerId]);
+    onlinePlayers[playerId].score++;
+    console.log(`Player ${playerId} score is ${onlinePlayers[playerId].score}`);
+}
     
-module.exports = { createPlayer, getOnlinePlayers, setPlayerName, setPlayerReady, removePlayer };
+module.exports = { createPlayer, getOnlinePlayers, setPlayerName, setPlayerReady, removePlayer, incrementPlayerScore };
