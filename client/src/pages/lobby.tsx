@@ -1,39 +1,25 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import './../styles/lobby.scss'
 import Players from './../components/players'
 import { useHistory } from 'react-router'
+import { useAppSelector } from '../store/hooks'
+import { socket } from '../service/socket'
 
 export default function lobby(): ReactElement {
-  const [clicked, setClicked] = useState(false)
   const history = useHistory()
+  const players = useAppSelector((state) => state.players.playersList)
 
   const handleClick = () => {
-    setClicked(!clicked)
-    history.push('/quizz')
+    socket.emit('playerReady')
   }
 
-  //temp
-  const playersList = [
-    {
-      name: 'John',
-      id: '1',
-      score: 0,
-      ready: false,
-    },
-    {
-      name: 'Jane',
-      id: '2',
-      score: 0,
-      ready: false,
-    },
-    {
-      name: 'Jack',
-      id: '3',
-      score: 0,
-      ready: false,
-    },
-  ]
+  useEffect(() => {
+    const allPlayersReady = Object.keys(players).every((id) => players[id].ready)
+    if (allPlayersReady) {
+      history.push('/quizz')
+    }
+  }, [players])
 
   const readyIconAnimation = {
     initial: {
@@ -64,11 +50,11 @@ export default function lobby(): ReactElement {
         <h2 className="white">LOBBY</h2>
         <div className="lobby-content">
           <div className="lobby-title">Online users</div>
-          <Players players={playersList} />
+          <Players />
         </div>
         <div className="ready-content">
           <div className="ready-title">
-            {playersList.length > 1 ? (
+            {Object.keys(players).filter((id) => players[id].name !== '').length === 1 ? (
               <>
                 <i className="eva eva-alert-circle-outline"></i>
                 <span>Waiting for another player to start a game</span>
@@ -79,7 +65,7 @@ export default function lobby(): ReactElement {
           </div>
           <div onClick={handleClick} className="ready-button">
             <AnimatePresence exitBeforeEnter>
-              {clicked ? (
+              {players[socket.id].ready ? (
                 <motion.i
                   className="eva eva-checkmark-circle-2-outline confirm-ready"
                   initial="initial"

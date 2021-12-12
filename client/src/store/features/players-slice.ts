@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 interface PlayersState {
-  playersList: Player[]
+  playersList: PlayersList<Player>
 }
 
 const initialState: PlayersState = {
-  playersList: [],
+  playersList: {},
 }
 
 const playersSlice = createSlice({
@@ -15,22 +15,14 @@ const playersSlice = createSlice({
     setPlayers: (state, action) => {
       state.playersList = action.payload
     },
-    addPlayer: (state, action) => {
-      state.playersList.push(action.payload)
-    },
-    removePlayer: (state, action) => {
-      state.playersList = state.playersList.filter(
-        (player) => player.id !== action.payload,
-      )
-    },
     setPlayerReady: (state, action) => {
-      const player = state.playersList.find((p) => p.id === action.payload.id)
-      if (player) {
-        player.ready = action.payload.ready
-      }
+      state.playersList[action.payload.id].ready = action.payload.ready
+    },
+    setPlayerName: (state, action) => {
+      state.playersList[action.payload.id].name = action.payload.name
     },
   },
 })
 
-export const { setPlayers, addPlayer, removePlayer } = playersSlice.actions
+export const { setPlayers, setPlayerReady, setPlayerName } = playersSlice.actions
 export default playersSlice.reducer

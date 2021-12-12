@@ -1,29 +1,39 @@
-import React, { ReactElement } from 'react'
-import './../styles/users.scss'
+import React, { ReactElement, useEffect } from 'react'
+import { socket } from '../service/socket'
+import { useAppSelector } from '../store/hooks'
+import './../styles/players.scss'
 
-interface playersProps {
-  players: Array<Player>
-}
+export default function users(): ReactElement {
+  const players = useAppSelector((state) => state.players.playersList)
 
-export default function users(props: playersProps): ReactElement {
+  useEffect(() => {
+    console.log('players', players)
+  }, [players])
+
   return (
-    <div className="user-list-content">
-      {props.players.map((user: Player) => (
-        <div className="user-item" key={user.id}>
-          <div className="item-right">
-            <div className="pic-profile">{user.name.slice(0, 2).toUpperCase()}</div>
-            <div className="user-username">{user.name}</div>
-            <div className="user-you">
-              {user.id === '1' ? <i className="eva eva-person"></i> : ''}
+    <div className="player-list-content">
+      {Object.keys(players)
+        .filter((id: string) => players[id].name !== '')
+        .map((id: string) => (
+          <div className="player-item" key={id}>
+            <div className="item-right">
+              <div className="pic-profile">
+                {players[id].name.slice(0, 2).toUpperCase()}
+              </div>
+              <div className="player-username">{players[id].name}</div>
+              <div className="player-you">
+                {id === socket.id ? <i className="eva eva-person"></i> : ''}
+              </div>
+            </div>
+            <div>
+              <div
+                className={`player-ready ${players[id].ready ? 'ready' : 'not-ready'}`}
+              >
+                <i className="eva eva-checkmark-outline"></i>
+              </div>
             </div>
           </div>
-          <div>
-            <div className="user-ready">
-              <i className="eva eva-checkmark-outline"></i>
-            </div>
-          </div>
-        </div>
-      ))}
+        ))}
     </div>
   )
 }

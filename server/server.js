@@ -18,13 +18,49 @@ const io = require('socket.io')(server);
 app.use(express.static(path.join(__dirname, '../client/build')));
 
 
+const onlinePlayers = {};
+
+
+const addPlayer = (socket) => {
+    //add the player to the online players
+    onlinePlayers[socket.id] = {
+        name: '',
+        score: 0,
+        ready: false,
+    };
+    io.sockets.emit('updatePlayers', onlinePlayers);
+    console.log(`Player ${socket.id} connected`);
+}
+
+
+
 // Quand un client se connecte, on le note dans la console
 io.on('connection', function (socket) {
-    console.log(socket.id);
-
+    addPlayer(socket);
+    
     //send the questions to the client
     socket.emit("quiz", kwiz.questions());
 
+    socket.on('newPlayer', (name) => {
+        onlinePlayers[socket.id].name = name;
+        io.sockets.emit('updatePlayers', onlinePlayers);
+    })
+
+    socket.on('playerReady', () => {
+        const ready = onlinePlayers[socket.id].ready
+        onlinePlayers[socket.id].ready = !ready;
+        io.sockets.emit('updatePlayers', onlinePlayers);
+        console.log(`Player ${socket.id} is ${onlinePlayers[socket.id].ready ? 'ready' : 'not ready'}`); 
+    })
+
+    socket.on('disconnect', function () {
+        delete onlinePlayers[socket.id];
+        io.sockets.emit('updatePlayers', onlinePlayers);
+        console.log(`Player ${socket.id} disconnected`);
+    })
 });
+
+
+
 
 server.listen(8080);

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import './../styles/question.scss'
-import PlayerCount from './player-count'
+// import PlayerCount from './player-count'
 interface QuestionProps {
   question: Question
 }
@@ -33,7 +33,7 @@ export default function question(props: QuestionProps): ReactElement {
                 <span className="answer-checkbox"></span>
                 <div className="answer-text">{opt}</div>
               </label>
-              <PlayerCount />
+              {/* <PlayerCount /> */}
             </div>
           ))}
         </div>
