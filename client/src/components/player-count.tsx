@@ -1,14 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useAppSelector } from '../store/hooks'
 import './../styles/player-count.scss'
 
-export default function playerCount() {
+interface PlayerCountProps {
+  countSelectedOpt: number
+}
+
+export default function playerCount(props: PlayerCountProps) {
+  const players = useAppSelector((state) => state.players.playersList)
+  console.log(props.countSelectedOpt)
   return (
     <div className="players">
-      {[1, 2, 3].map((key) => (
-        <div key={key} className={`user-icon`}>
-          <i className="eva eva-person"></i>
-        </div>
-      ))}
+      {Object.keys(players).map((_, index) => {
+        return index <= props.countSelectedOpt - 1 ? (
+          <div key={index} className="user-icon selected">
+            <i className="eva eva-person"></i>
+          </div>
+        ) : (
+          <div key={index} className="user-icon">
+            <i className="eva eva-person"></i>
+          </div>
+        )
+      })}
     </div>
   )
 }

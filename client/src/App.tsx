@@ -9,7 +9,8 @@ import { AnimatePresence } from 'framer-motion'
 import { socket } from './service/socket'
 import { useAppDispatch } from './store/hooks'
 import { setPlayers } from './store/features/players-slice'
-import { incrementRound, setQuestionsList } from './store/features/questions-slice'
+import { setQuestionsList } from './store/features/questions-slice'
+import Results from './pages/results'
 
 export default function App() {
   const location = useLocation()
@@ -31,6 +32,7 @@ export default function App() {
         <Route exact path="/" component={Home} />
         <Route exact path="/lobby" component={Lobby} />
         <Route exact path="/quizz" component={Quizz} />
+        <Route exact path="/results" component={Results} />
       </Switch>
     </AnimatePresence>
   )

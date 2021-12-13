@@ -48,7 +48,7 @@ export default function lobby(): ReactElement {
       exit={{ opacity: 1 }}
       transition={{ ease: 'easeInOut', duration: 0.6 }}
     >
-      <div className="lobby-bg background"></div>
+      <div className="blue-bg background"></div>
       <div>
         <h2 className="white">LOBBY</h2>
         <div className="lobby-content">

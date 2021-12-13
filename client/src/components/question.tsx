@@ -1,21 +1,41 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { socket } from '../service/socket'
 import './../styles/question.scss'
-// import PlayerCount from './player-count'
+import PlayerCount from './player-count'
 
 interface QuestionProps {
   question: Question
   round: number
 }
+interface PlayersOpt {
+  [key: string]: number
+}
 
 export default function question(props: QuestionProps): ReactElement {
+  const [playersOpt, setPlayersOpt] = useState<PlayersOpt>({})
+
   const handleClick = (q: Question, optIndex: number) => {
-    console.log('Question : ' + q.id)
-    console.log('Réponse : ' + optIndex)
-    socket.emit('answerQuestion', props.round, optIndex)
+    socket.emit('answerQuestion', optIndex, props.round)
   }
 
-  console.log(props.question)
+  useEffect(() => {
+    socket.on('newAnswer', (player, opt) => {
+      setPlayersOpt({ ...playersOpt, [player]: opt })
+    })
+
+    socket.on('newRound', () => {
+      setPlayersOpt({})
+    })
+  }, [])
+
+  const getCountSelectedOpt = (opt: number) => {
+    let count = 0
+    Object.keys(playersOpt).forEach((key) => {
+      if (playersOpt[key] === opt) count++
+    })
+    return count
+  }
+
   // test
   return (
     <div className="question-content">
@@ -38,7 +58,7 @@ export default function question(props: QuestionProps): ReactElement {
                 <span className="answer-checkbox"></span>
                 <div className="answer-text">{opt}</div>
               </label>
-              {/* <PlayerCount /> */}
+              <PlayerCount countSelectedOpt={getCountSelectedOpt(index)} />
             </div>
           ))}
         </div>

@@ -52,20 +52,27 @@ io.on('connection', function (socket) {
     * QUESTIONS MANAGEMENT *
     ************************/
 
-    socket.emit('sendQuestions',  questions.getQuestions())
+    io.sockets.emit('sendQuestions', questions.getQuestions());
+
 
     // Player answer to the question
-    socket.on('answerQuestion', (currentQuestionIndex, answer) => {
-        questions.addPlayerAnswer(socket, currentQuestionIndex, answer);
-        
+    socket.on('answerQuestion', (answer, questionId) => {
+        questions.addPlayerAnswer(socket, questionId, answer);
+
+        io.sockets.emit('newAnswer', socket.id, answer);
+
+
+        const answerLenght = Object.keys(questions.getPlayersAnswers()).length
+        const playersLenght = Object.keys(players.getOnlinePlayers()).length
+
+        console.log(playersLenght, answerLenght)
         //everyone answer to the question, send the new question to everyone
-        if (Object.keys(questions.getPlayersAnswers()).length === Object.keys(players.getOnlinePlayers()).length) {
+        if (answerLenght === playersLenght) {
             questions.verifyAnswers();
             io.sockets.emit('updatePlayers', players.getOnlinePlayers());
-            io.sockets.emit('nextQuestion');
+            io.sockets.emit('newRound')
             questions.clearPlayersAnswers();
         }
-
     })
 
 });

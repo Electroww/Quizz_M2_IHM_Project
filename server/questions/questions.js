@@ -8,6 +8,10 @@ const getQuestions = () => {
     })
 }
 
+const getQuestion = (questionIndex) => {
+    return data.questions[questionIndex].question
+}
+
 const verifyAnswers = () => {
     Object.keys(playersAnswers).forEach(playerId => {
         if (playersAnswers[playerId].answer === data.questions[playersAnswers[playerId].question].answer) {
@@ -19,7 +23,7 @@ const verifyAnswers = () => {
 const addPlayerAnswer = (socket, questionIndex, answerIndex) => {
     playersAnswers[socket.id] = {
         question: questionIndex,
-        answer: answerIndex
+        answer: answerIndex,
     }
 }
 
@@ -37,5 +41,6 @@ module.exports = {
     addPlayerAnswer,
     verifyAnswers,
     getPlayersAnswers,
-    clearPlayersAnswers
+    clearPlayersAnswers,
+    getQuestion
 }
