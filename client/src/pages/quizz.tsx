@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion'
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useHistory } from 'react-router'
 import Question from '../components/question'
 import { socket } from '../service/socket'
-import { useAppDispatch, useAppSelector } from '../store/hooks'
+import { useAppSelector } from '../store/hooks'
 import './../styles/quizz.scss'
 
 export default function quizz(): ReactElement {

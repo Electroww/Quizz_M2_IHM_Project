@@ -1,14 +1,11 @@
-import React, { createRef, useEffect } from 'react'
+import React, { createRef } from 'react'
 import { useHistory } from 'react-router-dom'
 import './../styles/home.scss'
 import { motion } from 'framer-motion'
-import { useAppSelector } from './../store/hooks'
 import { socket } from '../service/socket'
 
 export default function home() {
   const history = useHistory()
-  const players = useAppSelector((state) => state.players.playersList)
-
   const playerName = createRef<HTMLInputElement>()
 
   function handleClick() {
@@ -24,10 +21,6 @@ export default function home() {
       handleClick()
     }
   }
-
-  useEffect(() => {
-    console.log('players home', players)
-  }, [players])
 
   return (
     <motion.div
