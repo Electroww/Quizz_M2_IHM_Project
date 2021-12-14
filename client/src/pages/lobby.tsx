@@ -51,7 +51,7 @@ export default function lobby(): ReactElement {
       <div className="blue-bg background"></div>
       <div>
         <h2 className="white">LOBBY</h2>
-        <div className="lobby-content">
+        <div className="white-content">
           <div className="lobby-title">Online users</div>
           <Players />
         </div>
