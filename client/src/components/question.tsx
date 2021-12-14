@@ -20,7 +20,9 @@ export default function question(props: QuestionProps): ReactElement {
 
   useEffect(() => {
     socket.on('newAnswer', (player, opt) => {
-      setPlayersOpt({ ...playersOpt, [player]: opt })
+      setPlayersOpt((prev) => {
+        return { ...prev, [player]: opt }
+      })
     })
 
     socket.on('newRound', () => {
