@@ -8,12 +8,45 @@
     display:flex;
     justify-content: space-between;
     font-family: 'Readex Pro', sans-serif;
+    color: #22295e;
 }
+
+.player-rank-position {
+    font-family: 'Dela Gothic One', sans-serif;
+}
+
 .player-rank-name {
     font-family: 'Readex Pro', sans-serif;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.position-title, .player-rank-position {
+   width:3rem;
 }
 
 .position-title, .player-name-title, .score-title {
     font-family: 'Dela Gothic One', sans-serif;
     font-size:0.7rem;
+}
+
+.player-rank.titles {
+    margin-bottom: 0.8rem;
+    color: #575c85;
+}
+
+.rank-icon-me {
+    height:20px;
+}
+
+.player-rank-position.first {
+    color:#E3BE3D;
+}
+
+.player-rank-position.second {
+    color:#8D9BA2;
+}
+.player-rank-position.third {
+    color:#9E6540;
 }
