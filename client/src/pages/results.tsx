@@ -5,6 +5,7 @@ import { useAppSelector } from '../store/hooks'
 import { socket } from '../service/socket'
 export default function results() {
   const players = useAppSelector((state) => state.players.playersList)
+  const questions = useAppSelector((state) => state.questions.questionsList)
 
   const playersRank = () => {
     const sortedPlayers = Object.keys(players).sort((a, b) => {
@@ -18,6 +19,14 @@ export default function results() {
         return 'second'
       } else if (index === 2) {
         return 'third'
+      }
+    }
+
+    const playerTitle = (idPlayer: string) => {
+      if (players[idPlayer].score === questions.length) {
+        return <div className="player-rank-title flawless">Flawless</div>
+      } else if (players[idPlayer].score === 0) {
+        return <div className="player-rank-title">Very bad</div>
       }
     }
 
@@ -35,7 +44,10 @@ export default function results() {
               </span>
             </div>
           </div>
-          <div className="player-rank-score">{players[idPlayer].score}</div>
+          <div className="score-and-title">
+            {playerTitle(idPlayer)}
+            <div className="player-rank-score">{players[idPlayer].score}</div>
+          </div>
         </div>
       )
     })

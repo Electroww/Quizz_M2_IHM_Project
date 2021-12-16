@@ -50,3 +50,22 @@
 .player-rank-position.third {
     color:#9E6540;
 }
+.score-and-title {
+    display: flex;
+    align-items: center;
+}
+.player-rank-title {
+    font-family: 'Readex Pro', sans-serif;
+    font-weight: 300;
+    font-size:0.7rem;
+    color: #575c85;
+    margin-right: 4rem;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    border-radius:0.35rem;
+}
+.flawless {
+    background-color: #3e5bfd;
+    color:white;
+    box-shadow: -1px 4px 11px 4px rgb(91 96 168 / 20%);
+}
