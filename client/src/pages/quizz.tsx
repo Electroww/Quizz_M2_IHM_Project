@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import Question from '../components/question'
 import { socket } from '../service/socket'
@@ -10,14 +10,25 @@ export default function quizz(): ReactElement {
   const questions = useAppSelector((state) => state.questions.questionsList)
   const history = useHistory()
   const [round, setRound] = useState(0)
+  const [countdown, setSeconds] = useState(0)
+
+  useEffect(() => {
+    if (countdown > 0) {
+      setTimeout(() => setSeconds(countdown - 1), 1000)
+    }
+  }, [countdown])
 
   socket.on('newRound', () => {
-    if (round < questions.length - 1) {
-      setRound(round + 1)
-    } else {
-      setRound(0)
-      history.push('/results')
-    }
+    // wait 5 seconds to start the next round
+    setSeconds(5)
+    setTimeout(() => {
+      if (round < questions.length - 1) {
+        setRound(round + 1)
+      } else {
+        setRound(0)
+        history.push('/results')
+      }
+    }, 5000)
   })
 
   return (
@@ -36,7 +47,7 @@ export default function quizz(): ReactElement {
       <div>
         <h2 className="title-quizz">QUIZZ</h2>
         <div>
-          <Question question={questions[round]} round={round} />
+          <Question countdown={countdown} question={questions[round]} round={round} />
         </div>
       </div>
     </motion.div>

@@ -6,6 +6,7 @@ import PlayerCount from './player-count'
 interface QuestionProps {
   question: Question
   round: number
+  countdown: number
 }
 interface PlayersOpt {
   [key: string]: number
@@ -13,6 +14,7 @@ interface PlayersOpt {
 
 export default function question(props: QuestionProps): ReactElement {
   const [playersOpt, setPlayersOpt] = useState<PlayersOpt>({})
+  const [answer, setAnswer] = useState('')
 
   const handleClick = (q: Question, optIndex: number) => {
     socket.emit('answerQuestion', optIndex, props.round)
@@ -25,8 +27,10 @@ export default function question(props: QuestionProps): ReactElement {
       })
     })
 
-    socket.on('newRound', () => {
-      setPlayersOpt({})
+    socket.on('newRound', (answer) => {
+      setAnswer(answer)
+      // wait 5 seconds to clear the playersOpt
+      setTimeout(() => setPlayersOpt({}), 5000)
     })
   }, [])
 
@@ -41,6 +45,9 @@ export default function question(props: QuestionProps): ReactElement {
   // test
   return (
     <div className="question-content">
+      {props.countdown > 0 ? (
+        <div className="countdown-answer">Next round in {props.countdown}</div>
+      ) : null}
       <div key={props.question.id} className="question-block">
         <div className="question">
           <div className="question-head">
@@ -58,7 +65,10 @@ export default function question(props: QuestionProps): ReactElement {
                   onClick={() => handleClick(props.question, index)}
                 />
                 <span className="answer-checkbox"></span>
-                <div className="answer-text">{opt}</div>
+                <span className="answer-text">{opt}</span>
+                {props.countdown > 0 && parseInt(answer) === index ? (
+                  <span className="q-answer">was the good answer</span>
+                ) : null}
               </label>
               <PlayerCount countSelectedOpt={getCountSelectedOpt(index)} />
             </div>

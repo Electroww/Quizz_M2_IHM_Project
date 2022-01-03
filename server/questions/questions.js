@@ -35,6 +35,10 @@ const clearPlayersAnswers = () => {
      playersAnswers = {}
 }
 
+const getAnswer = (idQuestion) => {
+       return data.questions[idQuestion].answer
+}
+
 
 module.exports = { 
     getQuestions,
@@ -42,5 +46,6 @@ module.exports = {
     verifyAnswers,
     getPlayersAnswers,
     clearPlayersAnswers,
-    getQuestion
+    getQuestion,
+    getAnswer
 }

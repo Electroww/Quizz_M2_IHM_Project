@@ -70,7 +70,7 @@ io.on('connection', function (socket) {
         if (answerLenght === playersLenght) {
             questions.verifyAnswers();
             io.sockets.emit('updatePlayers', players.getOnlinePlayers());
-            io.sockets.emit('newRound')
+            io.sockets.emit('newRound', questions.getAnswer(questionId));
             questions.clearPlayersAnswers();
         }
     })
