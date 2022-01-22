@@ -1,14 +1,10 @@
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement } from 'react'
 import { socket } from '../service/socket'
 import { useAppSelector } from '../store/hooks'
 import './../styles/players.scss'
 
 export default function users(): ReactElement {
   const players = useAppSelector((state) => state.players.playersList)
-
-  useEffect(() => {
-    console.log('players', players)
-  }, [players])
 
   return (
     <div className="player-list-content">

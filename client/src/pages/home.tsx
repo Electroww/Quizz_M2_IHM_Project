@@ -13,7 +13,6 @@ export default function home() {
 
   function handleClick() {
     const name = playerName.current?.value
-    console.log(players)
     if (name && name !== '' && name?.length > 2 && !isPlayerNameExist()) {
       socket.emit('newPlayer', name)
       history.push('/lobby')

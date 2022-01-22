@@ -65,7 +65,7 @@ io.on('connection', function (socket) {
         const answerLenght = Object.keys(questions.getPlayersAnswers()).length
         const playersLenght = Object.keys(players.getOnlinePlayers()).length
 
-        console.log(playersLenght, answerLenght)
+
         //everyone answer to the question, send the new question to everyone
         if (answerLenght === playersLenght) {
             questions.verifyAnswers();

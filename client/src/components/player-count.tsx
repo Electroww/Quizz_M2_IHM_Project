@@ -8,7 +8,7 @@ interface PlayerCountProps {
 
 export default function playerCount(props: PlayerCountProps) {
   const players = useAppSelector((state) => state.players.playersList)
-  console.log(props.countSelectedOpt)
+
   return (
     <div className="players">
       {Object.keys(players).map((_, index) => {
